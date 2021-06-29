@@ -1,5 +1,5 @@
 # D3D9HookExample
-Plug and play example of D3D9 Hook using ImGui
+Plug and play example of D3D9 Hook using ImGui for the menu
 
 ## Use
 
