@@ -14,5 +14,4 @@ You can use the INSERT key to show and hide the menu, and END to eject DLL.
 ```
 HWND hWindow = FindWindowA(0, "Call of Duty®: BlackOps");
 ```
-
-![Image Example](screenshots/blackops-example.png?raw=true "Example in Black Ops")
+![Image Example](./screenshots/blackops-example.png)
