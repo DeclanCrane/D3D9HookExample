@@ -1,6 +1,5 @@
 # D3D9HookExample
-Plug and play example of D3D9 Hook using ImGui for the menu
-[IMGUI](https://github.com/ocornut/imgui)
+Plug and play example of D3D9 Hook using [ImGui](https://github.com/ocornut/imgui) for the menu
 
 ## Use
 
