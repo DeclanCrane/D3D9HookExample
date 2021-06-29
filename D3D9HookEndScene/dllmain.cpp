@@ -16,8 +16,7 @@ ImGuiMenu Menu;
 * To use example in another game, change window name to one
 * of another application
 */
-HWND hWindow = NULL;
-BOOL bGotWindow = GetWindowByName("Call of Duty®: BlackOps", hWindow);
+HWND hWindow = FindWindowA(0, "Call of Duty®: BlackOps");
 
 HRESULT __stdcall myDetour(IDirect3DDevice9* pDevice)
 {
