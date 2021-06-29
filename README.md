@@ -1,5 +1,6 @@
 # D3D9HookExample
 Plug and play example of D3D9 Hook using ImGui for the menu
+[IMGUI](https://github.com/ocornut/imgui)
 
 ## Use
 
@@ -15,3 +16,6 @@ You can use the INSERT key to show and hide the menu, and END to eject DLL.
 HWND hWindow = FindWindowA(0, "Call of Duty®: BlackOps");
 ```
 ![Example](./screenshots/blackops-example.PNG)
+
+### Contributors
+Declan Crane
