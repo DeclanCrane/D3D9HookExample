@@ -2,10 +2,10 @@
 
 ImGuiMenu::ImGuiMenu()
 {
-    bSetup = false;
-    bShowMenu = false;
-    bShowCursor = false;
-    hWindow = nullptr;
+    bSetup          = false;
+    bShowMenu       = false;
+    bShowCursor     = false;
+    hWindow         = nullptr;
 }
 
 ImGuiMenu::~ImGuiMenu()
@@ -15,12 +15,9 @@ ImGuiMenu::~ImGuiMenu()
 
 void ImGuiMenu::SetupImGui(HWND hWindow, IDirect3DDevice9* pDevice)
 {
-    // Setup ImGui
     if (!bSetup)
     {
-        bSetup = true;
-
-        // Stores window menu is drawn on
+        // Store window menu is drawn on
         this->hWindow = hWindow;
 
         ImGui::CreateContext();
@@ -34,6 +31,8 @@ void ImGuiMenu::SetupImGui(HWND hWindow, IDirect3DDevice9* pDevice)
 
         // Sets up input for menu
         SetupMenuInput(hWindow);
+
+        bSetup = true;
     }
 }
 
@@ -45,14 +44,16 @@ void ImGuiMenu::SetupMenuInput(HWND hWindow)
 
 void ImGuiMenu::CleanUp()
 {
-    // Removes input hook
-    // Restore Original Input -- Fixes crash from ejecting
+    // Clean up ImGui
+    ImGui::DestroyContext();
+
+    // Remove input hook
     (WNDPROC)SetWindowLongPtr(hWindow, GWL_WNDPROC, (LONG_PTR)oWndProc);
 }
 
 //-----------------------------NOTE-----------------------------------//
 //  Turn this to a function pointer in the future...                  //
-//  Or keeps as a demo window unless pointer is not equal to nullptr  //
+//  Or keeps as a demo window unless function pointer is given        //
 //-----------------------------NOTE-----------------------------------//
 void ImGuiMenu::Menu()
 {

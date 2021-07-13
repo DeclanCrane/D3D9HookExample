@@ -7,6 +7,10 @@
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 
+// Detours
+#include "../Include/detours.h"
+#pragma comment(lib, "detours.lib")
+
 #include "WindowFinder.h"
 
 class D3D9Hook
@@ -26,14 +30,15 @@ public:
 
 	// EndScene
 	typedef HRESULT(__stdcall* endScene)(IDirect3DDevice9* pDevice);
-	endScene				pEndScene;
+	endScene				pEndScene; // Original D3D9 EndScene
 
 	// D3D9 Reset
-	typedef HRESULT(__stdcall* Reset)(D3DPRESENT_PARAMETERS* pPresentationParameters);
-	Reset					pReset;
+	typedef HRESULT(__stdcall* Reset)(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
+	Reset					pReset;	// Original D3D9 Reset
 
-	// Pointer to function to be called inside detour
-	HRESULT(__stdcall *Detour)(IDirect3DDevice9* pDevice);
+	// Pointers to detour functions
+	HRESULT(__stdcall *EndSceneDetour)(IDirect3DDevice9* pDevice);
+	HRESULT(__stdcall *ResetDetour)(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
 
 public:
 
@@ -46,9 +51,9 @@ public:
 	// Create D3D9 Device
 	void CreateD3D9Device(HWND hWindow);
 
-	// Grabs vTable and creates a detour to EndScene
-	void HookEndScene(HWND hWindow, endScene detourFunction);
+	// Grabs vTable and creates a detour to EndScene and Reset
+	void HookEndScene(HWND hWindow, endScene detourFunction, Reset resetFunction);
 
-	// Cleanup Function
+	// Cleanup
 	void CleanD3D9();
 };

@@ -166,7 +166,6 @@
     <ClCompile Include="..\Include\ImGUI\imgui_impl_win32.cpp" />
     <ClCompile Include="..\Include\ImGUI\imgui_tables.cpp" />
     <ClCompile Include="..\Include\ImGUI\imgui_widgets.cpp" />
-    <ClCompile Include="Console.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="ImGuiMenuD3D9.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="..\Include\ImGUI\imstb_rectpack.h" />
     <ClInclude Include="..\Include\ImGUI\imstb_textedit.h" />
     <ClInclude Include="..\Include\ImGUI\imstb_truetype.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="EndScene.h" />
     <ClInclude Include="ImGuiMenuD3D9.h" />
     <ClInclude Include="WindowFinder.h" />

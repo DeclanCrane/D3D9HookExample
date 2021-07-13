@@ -1,7 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include <Windows.h>
 
-#include "Console.h"
 #include "WindowFinder.h"
 #include "EndScene.h"
 #include "ImGuiMenuD3D9.h"
@@ -20,11 +19,23 @@ HWND hWindow = FindWindowA(0, "Call of Duty®: BlackOps");
 
 HRESULT __stdcall myDetour(IDirect3DDevice9* pDevice)
 {
+    // Setup only used once
     Menu.SetupImGui(hWindow, pDevice);
+
+    // Draws menu every frame
     Menu.Menu();
 
     // Call original endScene after detour
     return Hook.pEndScene(pDevice);
+}
+
+HRESULT __stdcall myResetDetour(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters)
+{
+    // Destory and recreate ImGui Device Objects
+    ImGui_ImplDX9_InvalidateDeviceObjects();
+    ImGui_ImplDX9_CreateDeviceObjects();
+
+    return Hook.pReset(pDevice, pPresentationParameters);
 }
 
 DWORD __stdcall EjectThread(LPVOID lpParameter)
@@ -36,15 +47,10 @@ DWORD __stdcall EjectThread(LPVOID lpParameter)
 
 DWORD WINAPI MainThread(HINSTANCE hModule)
 {
-
-    // Create a console for printing
-    Console console;
-    console.Print(LogType::Log, "Injected");
-
     //-------------------------------//
     // Example of D3D9 EndScene Hook //
     //-------------------------------//
-    Hook.HookEndScene(hWindow, myDetour);
+    Hook.HookEndScene(hWindow, myDetour, myResetDetour);
 
     // Main loop
     while (true)
